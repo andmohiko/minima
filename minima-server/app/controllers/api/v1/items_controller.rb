@@ -7,7 +7,7 @@ module Api
 
       def index
         items = Item.order(created_at: :desc)
-        render json: { status: 'SUCCESS', message: 'Loaded items', data: items }
+        render json: { status: 'SUCCESS', message: 'Loaded items', value: items }
       end
 
       def show
