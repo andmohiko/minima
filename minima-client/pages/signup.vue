@@ -54,16 +54,14 @@ export default {
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
         .then(res => {
-          console.log(res);
           const user = {
             email: res.user.email,
             name: this.name,
             uid: res.user.uid
           };
-          // axios.post("/v1/users",{ user }).then(() => {
-          //   this.$router.push("/");
-          // });
-          console.log(user)
+          axios.post("/users",{ user }).then(() => {
+            this.$router.push("/");
+          });
         })
         .catch(error => {
           this.error = (code => {
