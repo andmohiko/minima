@@ -3,7 +3,7 @@
     <v-col cols="12" md="4">
       <h2>Sign Up</h2>
       <form>
-        <v-text-field v-model="name" :counter="10" label="Name" data-vv-name="name" required></v-text-field>
+        <v-text-field v-model="username" :counter="10" label="Username" data-vv-name="username" required></v-text-field>
         <v-text-field v-model="email" :counter="20" label="Email" data-vv-name="email" required></v-text-field>
         <v-text-field
           v-model="password"
@@ -37,7 +37,7 @@ export default {
   data() {
     return {
       email: "",
-      name: "",
+      username: "",
       password: "",
       passwordConfirm: "",
       show1: false,
@@ -56,7 +56,7 @@ export default {
         .then(res => {
           const user = {
             email: res.user.email,
-            name: this.name,
+            username: this.username,
             uid: res.user.uid
           };
           axios.post("/users",{ user }).then(() => {

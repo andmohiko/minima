@@ -2,7 +2,7 @@
   <div>
     <div v-if="user">
       <p>Email: {{user.email}}</p>
-      <p>ユーザー名: {{user.name}}</p>
+      <p>Username: {{user.username}}</p>
     </div>
     <v-btn @click="logOut">ログアウト</v-btn>
   </div>

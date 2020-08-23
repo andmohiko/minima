@@ -54,7 +54,7 @@ module Api
         def user_params
           # params.require(:user).permit(:email, :uid, :name)
           params.fetch(:user, {}).permit(
-            :name, :email, :uid
+            :username, :email, :uid
           )
         end
     end
