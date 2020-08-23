@@ -54,6 +54,9 @@ export default Vue.extend({
     //   console.log(formItem)
     //   return formItem
     // }
+    user() {
+      return this.$store.state.currentUser;
+    }
   },
   mounted() {
     this.get()
