@@ -44,11 +44,10 @@ module Api
 
       def item_params
         # params.require(:item).permit(:name, :level)
-        params
-          .fetch(:item, {})
-          .permit(
-            :name, :level, :user_id
-          )
+        params.fetch(:item, {})
+        .permit(
+          :name, :level, :user_id
+        )
       end
     end
   end

@@ -44,26 +44,25 @@ export default Vue.extend({
         {
           text: '重要度',
           value: 'level'
+        },
+        {
+          text: 'userid',
+          value: 'user_id'
         }
       ]
     }
   },
   computed: {
-    // addedItem() {
-    //   const formItem = this.$refs.itemName
-    //   console.log(formItem)
-    //   return formItem
-    // }
     user() {
-      return this.$store.state.currentUser;
+      return this.$store.state.currentUser
     }
   },
   mounted() {
-    this.get()
+    this.items = this.$store.state.items
   },
   methods: {
-    get() {
-      axios.get('/items').then((res) => (this.items = res.data.value))
+    getItems() {
+      this.items = this.$store.state.items
     },
     addItem() {
       const addingItem = {
