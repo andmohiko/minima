@@ -68,13 +68,14 @@ export default Vue.extend({
     addItem() {
       const addingItem = {
         name: this.name,
-        level: this.level
+        level: this.level,
+        user_id: this.user.id
       }
       console.log('addingItem', addingItem)
       try {
         if (this.isValid(addingItem)) {
           console.log(addingItem)
-          // axios.post('/items', addingItem)
+          axios.post('/items', addingItem)
           this.get()
         } else {
           console.log('else error', addingItem)
