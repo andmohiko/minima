@@ -7,11 +7,15 @@ const store = () => {
   return new Vuex.Store({
     state: {
       currentUser: null,
+      items: []
     },
     mutations: {
       setUser(state, payload) {
         state.currentUser = payload
       },
+      setItems(state, payload) {
+        state.items = payload
+      }
     },
     actions: {
     }
