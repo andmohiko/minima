@@ -1,5 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
 
+require('dotenv').config()
 export default {
   mode: 'spa',
   /*
@@ -30,11 +31,13 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    "@/plugins/auth-check"
   ],
   /*
   ** Nuxt.js dev-modules
   */
   buildModules: [
+    '@nuxtjs/dotenv',
     '@nuxtjs/vuetify',
   ],
   /*

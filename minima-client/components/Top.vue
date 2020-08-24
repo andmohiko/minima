@@ -44,34 +44,37 @@ export default Vue.extend({
         {
           text: '重要度',
           value: 'level'
+        },
+        {
+          text: 'userid',
+          value: 'user_id'
         }
       ]
     }
   },
   computed: {
-    // addedItem() {
-    //   const formItem = this.$refs.itemName
-    //   console.log(formItem)
-    //   return formItem
-    // }
+    user() {
+      return this.$store.state.currentUser
+    }
   },
   mounted() {
-    this.get()
+    this.items = this.$store.state.items
   },
   methods: {
-    get() {
-      axios.get('/items').then((res) => (this.items = res.data.value))
+    getItems() {
+      this.items = this.$store.state.items
     },
     addItem() {
       const addingItem = {
         name: this.name,
-        level: this.level
+        level: this.level,
+        user_id: this.user.id
       }
       console.log('addingItem', addingItem)
       try {
         if (this.isValid(addingItem)) {
           console.log(addingItem)
-          // axios.post('/items', addingItem)
+          axios.post('/items', addingItem)
           this.get()
         } else {
           console.log('else error', addingItem)
