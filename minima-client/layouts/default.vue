@@ -25,7 +25,7 @@
       </v-btn>
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <v-toolbar-title v-text="user.username" />
+      <v-toolbar-title v-if="user" v-text="user.username" />
       <v-btn icon @click.stop="rightDrawer = !rightDrawer">
         <v-icon>mdi-menu</v-icon>
       </v-btn>
