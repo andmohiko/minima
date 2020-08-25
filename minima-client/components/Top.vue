@@ -47,10 +47,6 @@ export default Vue.extend({
         {
           text: '重要度',
           value: 'level'
-        },
-        {
-          text: 'userid',
-          value: 'user_id'
         }
       ]
     }
