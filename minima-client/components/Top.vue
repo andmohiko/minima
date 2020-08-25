@@ -103,7 +103,5 @@ export default Vue.extend({
 .add-item {
   display: flex;
   margin-left: auto;
-  input {
-  }
 }
 </style>
