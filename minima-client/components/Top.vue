@@ -23,6 +23,10 @@
         class="elevation-1"
       ></v-data-table>
     </div>
+    <div v-if="user">
+      <p>Email: {{user.email}}</p>
+      <p>Username: {{user.username}}</p>
+    </div>
   </div>
 </template>
 
@@ -32,7 +36,6 @@ import axios from '@/plugins/axios'
 export default Vue.extend({
   data() {
     return {
-      items: [],
       levels: [5, 4, 3, 2, 1],
       name: '',
       level: 5,
@@ -55,15 +58,13 @@ export default Vue.extend({
   computed: {
     user() {
       return this.$store.state.currentUser
+    },
+    items() {
+      console.log(this.$store.state.items)
+      return this.$store.state.items
     }
   },
-  mounted() {
-    this.items = this.$store.state.items
-  },
   methods: {
-    getItems() {
-      this.items = this.$store.state.items
-    },
     addItem() {
       const addingItem = {
         name: this.name,
@@ -75,7 +76,8 @@ export default Vue.extend({
         if (this.isValid(addingItem)) {
           console.log(addingItem)
           axios.post('/items', addingItem)
-          this.get()
+          this.items.push(addingItem)
+          store.commit("setItems", this.items)
         } else {
           console.log('else error', addingItem)
         }

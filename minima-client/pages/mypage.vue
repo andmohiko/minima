@@ -3,10 +3,6 @@
     <div v-if="user">
       <p>Email: {{user.email}}</p>
       <p>Username: {{user.username}}</p>
-      {{ user }}
-
-      <p>items</p>
-      {{ myItems }}
     </div>
     <v-btn @click="toManageItems">持ち物管理</v-btn>
     <v-btn @click="logOut">ログアウト</v-btn>

@@ -45,6 +45,11 @@ export default {
       error: ""
     };
   },
+  mounted() {
+    if (this.$store.state.currentUser) {
+      this.$router.push("/mypage");
+    }
+  },
   methods: {
    signup() {
       if (this.password !== this.passwordConfirm) {
@@ -60,7 +65,7 @@ export default {
             uid: res.user.uid
           };
           axios.post("/users",{ user }).then(() => {
-            this.$router.push("/");
+            this.$router.push("/mypage");
           });
         })
         .catch(error => {
