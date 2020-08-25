@@ -7,12 +7,13 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
+    origins 'http://localhost:3000', 'https://minima-5f754.web.app/'
     # origins '*'
-    if Rails.env.production?
-        origins 'https://minima-5f754.web.app/'
-    else
-        origins 'http://localhost:3000'
-    end
+    # if Rails.env.production?
+    #     origins 'https://minima-5f754.web.app/'
+    # else
+    #     origins 'http://localhost:3000'
+    # end
 
     resource '*',
       headers: :any,
