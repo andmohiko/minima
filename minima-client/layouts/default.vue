@@ -25,6 +25,7 @@
       </v-btn>
       <v-toolbar-title v-text="title" />
       <v-spacer />
+      <v-toolbar-title v-text="user.username" />
       <v-btn icon @click.stop="rightDrawer = !rightDrawer">
         <v-icon>mdi-menu</v-icon>
       </v-btn>
@@ -60,7 +61,7 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: "minima-List" //追加
+      title: "minima-List"
     };
   },
   computed: {
