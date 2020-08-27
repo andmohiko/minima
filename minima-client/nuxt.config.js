@@ -1,5 +1,8 @@
 import colors from 'vuetify/es5/util/colors'
 
+const environment = process.env.NODE_ENV || 'local'
+const env = require(`./env/${environment}.js`)
+
 require('dotenv').config()
 export default {
   mode: 'spa',
@@ -53,6 +56,7 @@ export default {
   */
   axios: {
   },
+  env: env,
   /*
   ** vuetify module configuration
   ** https://github.com/nuxt-community/vuetify-module
