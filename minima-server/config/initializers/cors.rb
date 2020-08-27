@@ -7,8 +7,8 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'https://minima-5f754.web.app/'
-    # origins '*'
+    # origins 'https://minima-5f754.web.app/'
+    origins '*'
     # if Rails.env.production?
     #     origins 'https://minima-5f754.web.app/'
     # else
