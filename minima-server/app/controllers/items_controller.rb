@@ -44,7 +44,7 @@ class ItemsController < ApplicationController
     # params.require(:item).permit(:name, :level)
     params.fetch(:item, {})
     .permit(
-      :name, :level, :user_id
+      :name, :level, :user_id, :genre_id
     )
   end
 end
