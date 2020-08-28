@@ -22,48 +22,34 @@
         :items-per-page="20"
         class="elevation-1"
       >
-        <!-- <template v-slot:top>
-          <v-toolbar>
-            <v-toolbar-title>My Items</v-toolbar-title>
-            <v-divider
-              class="mx-4"
-              inset
-              vertical
-            ></v-divider>
-            <v-spacer></v-spacer>
-            <v-dialog v-model="dialog" max-width="500px">
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  color="primary"
-                  dark
-                  class="mb-2"
-                  v-bind="attrs"
-                  v-on="on"
-                >New Item</v-btn>
-              </template>
-              <v-card>
-                <v-card-title>
-                  <span class="headline">new itemするときのモーダル</span>
-                </v-card-title>
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn color="blue darken-1" text>Cancel</v-btn>
-                  <v-btn color="blue darken-1" text>Save</v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
-          </v-toolbar>
-        </template> -->
         <template v-slot:item.actions="{ item }">
-          <!-- <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon> -->
+          <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
           <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
         </template>
       </v-data-table>
     </div>
+    <div class="editItem">
+      <v-dialog v-model="isShowEditModal" max-width="500px">
+        <v-card-title>
+          <span class="headline">アイテムを編集</span>
+        </v-card-title>
+        <v-card-text>
+          <v-col cols="12" sm="6" md="4">
+            <v-text-field v-model="editedItem.name" label="Item name"></v-text-field>
+            <v-select v-model="editedItem.level" :items="levels" placeholder="level">
+        ></v-select>
+          </v-col>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="closeModal">Cancel</v-btn>
+          <v-btn color="blue darken-1" text @click="updateItem">Save</v-btn>
+        </v-card-actions>
+      </v-dialog>
+    </div>
     <div v-if="user">
       <p>Email: {{user.email}}</p>
       <p>Username: {{user.username}}</p>
-      <v-icon small class="mr-2">mdi-pencil</v-icon>
     </div>
   </div>
 </template>
@@ -74,7 +60,9 @@ import axios from '@/plugins/axios'
 export default Vue.extend({
   data() {
     return {
-      dialog: false,
+      isShowEditModal: false,
+      editedIndex: -1,
+      editedItem: {},
       levels: [5, 4, 3, 2, 1],
       name: '',
       level: 5,
@@ -119,28 +107,57 @@ export default Vue.extend({
         axios.post('/items', addingItem)
         this.items.push(addingItem)
         this.$store.commit("setItems", this.items)
+        this.name = ''
       } catch {
         console.log('error couldnt add item')
       }
     },
-    // editItem (item) {
-    //   this.editedIndex = this.items.indexOf(item)
-    //   this.editedItem = Object.assign({}, item)
-    //   this.dialog = true
-    // },
-    deleteItem (deletingItem) {
+    editItem(item) {
+      this.editedIndex = this.items.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.isShowEditModal = true
+    },
+    updateItem() {
+      const updatingItem = {
+        name: this.editedItem.name,
+        level: this.editedItem.level,
+        user_id: this.user.id
+      }
+      // console.log('updatingItem', updatingItem, this.editedItem)
+      if (!this.isValid(updatingItem)) return
+      try {
+        axios.put('/items/' + this.editedItem.id, updatingItem)
+        this.$store.commit(
+          "setItems",
+          this.items.filter(item => {
+            if (item.id === this.editedItem.id) {
+              item.name = this.editedItem.name,
+              item.level = this.editedItem.level
+            }
+            return item
+          })
+        )
+      this.closeModal()
+      } catch {
+        console.log('error couldnt update')
+      }
+    },
+    deleteItem(deletingItem) {
       try {
         // console.log('deleting item', deletingItem.id, deletingItem)
+        axios.delete('/items/' + deletingItem.id)
         this.$store.commit(
           "setItems",
           this.items.filter(item => {
             return item.id !== deletingItem.id;
           })
         )
-        axios.delete('/items/' + deletingItem.id)
       } catch {
         console.log('error couldnt delete')
       }
+    },
+    closeModal() {
+      this.isShowEditModal = false
     },
     isValid(addingItem) {
       if (!addingItem.name || !addingItem.level) {
