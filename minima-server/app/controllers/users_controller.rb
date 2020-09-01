@@ -5,8 +5,15 @@ class UsersController < ApplicationController
   def index
     if params[:uid]
       @current_user = User.find_by(uid: params[:uid])
-      current_user_items = @current_user.items
-      render json: { status: 'SUCCESS', message: 'Loaded users', value: {user: @current_user, items: current_user_items} }          
+      render json: {
+        status: 'SUCCESS',
+        message: 'Loaded users',
+        value: {
+          user: @current_user,
+          items: @current_user.items,
+          categories: @current_user.categories
+        }
+      }
     else
       users = User.all
       render json: { status: 'SUCCESS', message: 'Loaded users', value: users }
