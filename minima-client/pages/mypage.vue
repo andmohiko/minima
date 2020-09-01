@@ -6,13 +6,20 @@
     </div>
     <v-btn @click="toManageItems">持ち物管理</v-btn>
     <v-btn @click="logOut">ログアウト</v-btn>
+    <div class="category">
+      <EditCategory />
+    </div>
   </div>
 </template>
 
 <script>
-import firebase from "@/plugins/firebase";
+import firebase from "@/plugins/firebase"
+import EditCategory from "@/components/EditCategory.vue"
 
 export default {
+  components: {
+    EditCategory
+  },
   computed: {
     user() {
       return this.$store.state.currentUser
@@ -42,4 +49,7 @@ export default {
 </script>
 
 <style>
+.category {
+  margin: 30px 0;
+}
 </style>
