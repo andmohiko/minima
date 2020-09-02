@@ -24,17 +24,18 @@ class CategoriesController < ApplicationController
     render json: { status: 'SUCCESS', message: 'Deleted the category', data: @category }
   end
 
-
   private
-    def set_category
-      @category = Category.find(params[:id])
-    end
 
-    def category_params
-      # params.require(:category).permit(:name, :level)
-      params.fetch(:category, {})
+  def set_category
+    @category = Category.find(params[:id])
+  end
+
+  def category_params
+    # params.require(:category).permit(:name, :level)
+    params
+      .fetch(:category, {})
       .permit(
         :name, :user_id
       )
-    end
+  end
 end
