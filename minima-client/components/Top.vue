@@ -100,7 +100,7 @@ export default Vue.extend({
       return category.name
     })
     this.categoryNameList.unshift('')
-    console.log('mounted categoryNameList', this.categoryNameList)
+    // console.log('mounted categoryNameList', this.categoryNameList)
   },
   computed: {
     user() {
