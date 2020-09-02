@@ -3,10 +3,10 @@ class User < ApplicationRecord
   has_many :categories, dependent: :destroy
 
   def items
-    return Item.where(user_id: self.id)
+    Item.where(user_id: id)
   end
 
   def categories
-    return Category.where(user_id: self.id)
+    Category.where(user_id: id)
   end
 end
