@@ -41,8 +41,8 @@
         <v-card-text>
           <v-col cols="12" sm="6" md="4">
             <v-text-field v-model="editedItem.name" label="Item name"></v-text-field>
-            <v-select v-model="editedItem.level" :items="levels" placeholder="level">
-        ></v-select>
+            <v-select v-model="editedItem.level" :items="levels" placeholder="level">></v-select>
+            <v-select v-model="editedItem.category" :items="categoryNameList" placeholder="category"></v-select>
           </v-col>
         </v-card-text>
         <v-card-actions>
@@ -114,21 +114,23 @@ export default Vue.extend({
     }
   },
   methods: {
-    addItem() {
+    categoryNameToCategoryId(category) {
       let category_id = null
       for (let i=0; i<this.categories.length; i++) {
-        if (this.categories[i].name == this.category) {
+        if (this.categories[i].name == category) {
           category_id = this.categories[i].id
         }
       }
-      console.log('for', category_id)
+      return category_id
+    },
+    addItem() {
+      const category_id = this.categoryNameToCategoryId(this.category)
       const addingItem = {
         name: this.name,
         level: this.level,
         user_id: this.user.id,
         category_id
       }
-      console.log('addingItem', addingItem)
       if (!this.isValid(addingItem)) return
       try {
         console.log('valid item')
@@ -146,10 +148,12 @@ export default Vue.extend({
       this.isShowEditModal = true
     },
     updateItem() {
+      const category_id = this.categoryNameToCategoryId(this.editedItem.category)
       const updatingItem = {
         name: this.editedItem.name,
         level: this.editedItem.level,
-        user_id: this.user.id
+        user_id: this.user.id,
+        category_id
       }
       // console.log('updatingItem', updatingItem, this.editedItem)
       if (!this.isValid(updatingItem)) return
@@ -160,12 +164,13 @@ export default Vue.extend({
           this.items.filter(item => {
             if (item.id === this.editedItem.id) {
               item.name = this.editedItem.name,
-              item.level = this.editedItem.level
+              item.level = this.editedItem.level,
+              item.category_id = category_id
             }
             return item
           })
         )
-      this.closeModal()
+        this.closeModal()
       } catch {
         console.log('error couldnt update')
       }
