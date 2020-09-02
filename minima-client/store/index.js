@@ -7,7 +7,8 @@ const store = () => {
   return new Vuex.Store({
     state: {
       currentUser: null,
-      items: []
+      items: [],
+      categories: []
     },
     mutations: {
       setUser(state, payload) {
@@ -15,6 +16,9 @@ const store = () => {
       },
       setItems(state, payload) {
         state.items = payload
+      },
+      setCategories(state, payload) {
+        state.categories = payload
       }
     },
     actions: {
