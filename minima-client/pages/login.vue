@@ -3,7 +3,7 @@
     <v-col cols="12" md="4">
       <h2>Login</h2>
       <form>
-        <v-text-field v-model="email" :counter="20" label="email" data-vv-name="email" required></v-text-field>
+        <v-text-field v-model="email" :counter="50" label="email" data-vv-name="email" required></v-text-field>
         <v-text-field
           v-model="password"
           label="password"
