@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "minima-list",
     "public": "dist",
     "ignore": [
       "firebase.json",
