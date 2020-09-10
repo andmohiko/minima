@@ -1,5 +1,6 @@
 <template>
   <div>
+    <p class="title">Mypage</p>
     <div v-if="user">
       <p>Email: {{user.email}}</p>
       <p>Username: {{user.username}}</p>
@@ -49,6 +50,10 @@ export default {
 </script>
 
 <style>
+.title {
+  font-size: 24px;
+}
+
 .category {
   margin: 30px 0;
 }
