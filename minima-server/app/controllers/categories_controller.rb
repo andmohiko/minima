@@ -2,8 +2,17 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :update, :destroy]
 
   def index
-    categories = Category.order(created_at: :desc)
-    render json: { status: 'SUCCESS', message: 'Loaded categories', value: categories }
+    if params[:uid]
+      @current_user = User.find_by(uid: params[:uid])
+      render json: {
+        status: 'SUCCESS',
+        message: 'Loaded categories',
+        value: @current_user.categories
+      }
+    else
+      categories = Category.order(created_at: :desc)
+      render json: { status: 'SUCCESS', message: 'Loaded categories', value: categories }
+    end
   end
 
   def show

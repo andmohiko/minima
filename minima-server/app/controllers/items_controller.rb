@@ -4,8 +4,17 @@ class ItemsController < ApplicationController
   # protect_from_forgery with: :exception, only: :create
 
   def index
-    items = Item.order(created_at: :desc)
-    render json: { status: 'SUCCESS', message: 'Loaded items', value: items }
+    if params[:uid]
+      @current_user = User.find_by(uid: params[:uid])
+      render json: {
+        status: 'SUCCESS',
+        message: 'Loaded users',
+        value: @current_user.items
+      }
+    else
+      items = Item.order(created_at: :desc)
+      render json: { status: 'SUCCESS', message: 'Loaded items', value: items }
+    end
   end
 
   def show

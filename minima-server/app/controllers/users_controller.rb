@@ -7,12 +7,8 @@ class UsersController < ApplicationController
       @current_user = User.find_by(uid: params[:uid])
       render json: {
         status: 'SUCCESS',
-        message: 'Loaded users',
-        value: {
-          user: @current_user,
-          items: @current_user.items,
-          categories: @current_user.categories
-        }
+        message: 'Loaded user',
+        value: @current_user
       }
     else
       users = User.all
